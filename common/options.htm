@@ -14,7 +14,8 @@
         <script src="./js/jscolor.js" type="text/javascript"></script>
         <script src="./js/common.js" type="text/javascript"></script>
         <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, interactive-widget=overlays-content" />
-    </head>
+        <script src="./js/scrobble-options.js" defer></script>
+</head>
     <body>
 		<template class="check-icon-template">
 			<svg class="settingsicon feather-check-circle" viewBox="0 0 24 24">
@@ -104,7 +105,15 @@
 				</label>
 			</section>
 
-			<h2>Ads</h2>
+			<h2>Spaceghost Scrobbles</h2>
+            <section>
+                <p>Save a <a href="https://spacegho.st/scrobble/account" target="_blank" rel="noopener">client token</a> to add songs you play to your listening history.</p>
+                <label>Client token <input id="melodica-client-token" type="password" autocomplete="off"></label>
+                <button type="button" id="melodica-token-save">Connect</button>
+                <button type="button" id="melodica-token-remove">Disconnect</button>
+                <output id="melodica-token-status" aria-live="polite"></output>
+            </section>
+            <h2>Ads</h2>
 			<section class="ads checklist">
 				<label>
 					<input type="checkbox" name="playAds">

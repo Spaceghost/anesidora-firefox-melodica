@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "background": {
-        "page":"background.htm"
+        "page": "background.htm"
     },
     "browser_action": {
         "browser_style": false,
@@ -14,8 +14,8 @@
         "16": "images/anesidora-debug-16.png",
         "48": "images/anesidora-debug-48.png"
     },
-    "name": "Anesidora",
-    "homepage_url": "http://github.com/pvrs12/anesidora",
+    "name": "Anesidora for Melodica",
+    "homepage_url": "https://spacegho.st/melodica/apps/#anesidora-firefox",
     "permissions": [
         "declarativeNetRequest",
         "http://*.pandora.com/*",
@@ -23,14 +23,18 @@
         "http://*.p-cdn.com/*",
         "https://*.p-cdn.com/*",
         "http://*.p-cdn.us/*",
-        "https://*.p-cdn.us/*"
+        "https://*.p-cdn.us/*",
+        "https://spacegho.st/*"
     ],
-    "browser_specific_settings":{
-        "gecko":{
-            "id":"pvrs12@gmail.com",
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "anesidora-melodica@spacegho.st",
             "data_collection_permissions": {
-                "required": ["none"],
-                "optional": []
+                "required": [
+                    "authenticationInfo",
+                    "personallyIdentifyingInfo",
+                    "websiteActivity"
+                ]
             }
         }
     },
@@ -52,15 +56,17 @@
         }
     },
     "declarative_net_request": {
-        "rule_resources": [{
-            "id": "ruleset",
-            "enabled": true,
-            "path": "declarativeNetRules.json"
-        }]
+        "rule_resources": [
+            {
+                "id": "ruleset",
+                "enabled": true,
+                "path": "declarativeNetRules.json"
+            }
+        ]
     },
-    "version": "3.0.0",
+    "version": "3.0.1",
     "options_ui": {
         "page": "options.htm"
-    }
+    },
+    "content_security_policy": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
 }
-

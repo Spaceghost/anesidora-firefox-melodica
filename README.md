@@ -1,3 +1,9 @@
+# Anesidora for Melodica
+
+The Firefox toolbar player uses the bundled Melodica WebAssembly tuner codec. Sign into your Pandora stations as usual. In Options, connect a personal token from https://spacegho.st/scrobble/account to send now playing and qualifying listens to Spaceghost Scrobbles. Disconnect there at any time.
+
+The downloadable ZIP is an unsigned extension for temporary installation in Firefox (about:debugging → This Firefox → Load Temporary Add-on). Build from source by copying common/ and firefox/ into the same directory. The native codec sources and rebuild command are in melodica/.
+
 Anesidora
 =========
 

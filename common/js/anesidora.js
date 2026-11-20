@@ -21,6 +21,7 @@ function stringToBytes(str) {
     return re;
 }
 
+let melodicaAccess = "";
 var currentStationToken = null;
 var stationsArray = [];
 var stationsByToken = {};
@@ -128,7 +129,7 @@ async function sendRequest(methodOrParams, body, encrypted = true, retries = 0) 
     // 2. If needed, encrypt the request body *in addition* to HTTPS
     // This API was made before HTTPS was popular, so it uses its own encryption scheme.
     // Every request is encrypted using Blowfish ECB, *except* for Partner login.
-    let encrypted_body = encrypted ? encrypt(JSON.stringify(body)) : JSON.stringify(body);
+    let encrypted_body = encrypted ? await encrypt(JSON.stringify(body)) : JSON.stringify(body);
     
     /** @type {Response} */
     let response;
@@ -136,14 +137,18 @@ async function sendRequest(methodOrParams, body, encrypted = true, retries = 0) 
     let responseBody;
     try {
         // 3. Pass the request to the browser to make
-        response = await fetch("https://tuner.pandora.com/services/json/?" + parametersString, {
-            method: 'POST',
+        response = await fetch("https://spacegho.st/melodica/api/?" + parametersString, {
+            method: 'POST', credentials: 'omit', redirect: 'error',
             headers: {
+                ...(melodicaAccess ? {"x-melodica-access": melodicaAccess} : {}),
                 "Content-Type": encrypted ? 'text/plain' : 'application/json'
             },
             body: encrypted_body
         })
         responseBody = await response.json()
+        if (parametersObject.method === 'auth.userLogin' && response.ok && responseBody.stat === 'ok') {
+            melodicaAccess = response.headers.get('x-melodica-access') || '';
+        }
     } catch(e) {
         // 4. Handle errors
         // Something's gone wrong.
@@ -423,6 +428,8 @@ async function userLogin(
 }
 
 function userLogout() {
+    melodicaAccess = "";
+    localStorage.removeItem("melodicaClientToken");
     // Remove temporary info
     currentUserInfo = {
         credsSeemGood: false,
@@ -463,7 +470,7 @@ async function partnerLogin() {
         }
     }
 
-    var b = stringToBytes(decrypt(response.result.syncTime));
+    var b = await decryptTime(response.result.syncTime);
     // skip 4 bytes of garbage
     var s = "", i;
     for (i = 4; i < b.length; i++) {

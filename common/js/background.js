@@ -333,6 +333,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     mp3Player = document.getElementById('mp3Player');
 
+    watchSpaceghostListens(mp3Player, () => currentSong);
     mp3Player.addEventListener("play", updatePlayers);
     mp3Player.addEventListener("pause", updatePlayers);
     mp3Player.addEventListener("canplay", updatePlayers);

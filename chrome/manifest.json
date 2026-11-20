@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "background": {
-        "page":"background.htm"
+        "page": "background.htm"
     },
     "browser_action": {
         "default_icon": "images/anesidora-debug-128.png",
@@ -14,11 +14,11 @@
         "16": "images/anesidora-debug-16.png",
         "48": "images/anesidora-debug-48.png"
     },
-    "name": "Anesidora",
+    "name": "Anesidora for Melodica",
     "omnibox": {
         "keyword": "radio"
     },
-    "homepage_url": "http://github.com/pvrs12/anesidora",
+    "homepage_url": "https://spacegho.st/melodica/apps/#anesidora-firefox",
     "options_page": "options.htm",
     "permissions": [
         "declarativeNetRequest",
@@ -27,14 +27,17 @@
         "http://*.p-cdn.com/*",
         "https://*.p-cdn.com/*",
         "http://*.p-cdn.us/*",
-        "https://*.p-cdn.us/*"
+        "https://*.p-cdn.us/*",
+        "https://spacegho.st/*"
     ],
     "declarative_net_request": {
-        "rule_resources": [{
-            "id": "ruleset",
-            "enabled": true,
-            "path": "declarativeNetRules.json"
-        }]
+        "rule_resources": [
+            {
+                "id": "ruleset",
+                "enabled": true,
+                "path": "declarativeNetRules.json"
+            }
+        ]
     },
     "commands": {
         "skip_back": {
@@ -53,9 +56,10 @@
             }
         }
     },
-    "version": "3.0.0",
+    "version": "3.0.1",
     "options_ui": {
         "page": "options.htm",
         "chrome_style": false
-    }
+    },
+    "content_security_policy": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
 }
